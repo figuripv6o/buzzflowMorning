@@ -1,0 +1,77 @@
+cd ~ && rm -rf buzzflowMorning && mkdir buzzflowMorning && cd buzzflowMorning && mkdir -p scripts config .github/workflows && cat > config/routine.yml << 'EOF'
+metadata:
+  name: "BuzzFlow Morning – FDF Certified"
+  owner: "figuripv6o"
+  version: "1.0.0"
+
+affirmations:
+  - "GM God. GM Squad. GM BuzzFlow. Today I move with calm power."
+  - "I am protected, focused, and chosen to win this day."
+  - "No distraction is stronger than my purpose."
+
+blocks:
+  - id: "spiritual"
+    label: "Prayer / Alignment"
+    action: "Say a quick prayer of gratitude and protection."
+  - id: "mindset"
+    label: "Mind Check"
+    action: "Name how you feel in one sentence – no filter."
+  - id: "study"
+    label: "Long & Hard Study"
+    action: "Lock in one focused block (real estate, cyber, or coursework)."
+  - id: "build"
+    label: "BuzzBuild"
+    action: "Touch one Buzz project (code, repo cleanup, or planning)."
+  - id: "body"
+    label: "Movement"
+    action: "5–15 minutes of movement – walk, stretch, or quick workout."
+  - id: "evening"
+    label: "Night Review"
+    action: "Before bed, recap 3 wins and 1 lesson from today."
+EOF
+
+cat > scripts/buzzflow_morning.sh << 'EOF'
+#!/usr/bin/env bash
+CONFIG_FILE="config/routine.yml"
+divider(){ printf '%*s\n' "${COLUMNS:-60}" '' | tr ' ' '-'; }
+header(){ divider; echo "🌅 BuzzFlow Morning – FDF Certified™"; divider; echo; }
+check_config(){ [ ! -f "$CONFIG_FILE" ] && echo "⚠️ Missing config file." && exit 1; }
+print_affirmations(){ echo "✨ Affirmations"; divider;
+awk '
+  $1=="affirmations:"{a=1;next}
+  a&&$1~/^-/{sub(/^- */,"");print "• "$0}
+  a&&NF==0{a=0}
+' "$CONFIG_FILE"; echo; }
+print_blocks(){ echo "🧩 Today'\''s Blocks"; divider;
+awk '
+  $1=="-"&&/id:/{next}
+  /label:/{sub(/label:[ ]*/,"");label=$0}
+  /action:/{sub(/action:[ ]*/,"");printf "▪ %s\n   → %s\n\n",label,$0}
+' "$CONFIG_FILE"; }
+footer(){ divider; echo "✅ BuzzFlow Morning loaded. Move with intention."; echo; }
+main(){ header; check_config; print_affirmations; print_blocks; footer; }
+main
+EOF
+chmod +x scripts/buzzflow_morning.sh
+
+cat > .github/workflows/buzzflow-morning.yml << 'EOF'
+name: BuzzFlow Morning CI
+on: { push: { branches: [ "main", "master" ] }, pull_request: {} }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash -n scripts/buzzflow_morning.sh
+      - run: chmod +x scripts/buzzflow_morning.sh && ./scripts/buzzflow_morning.sh
+EOF
+
+cat > README.md << 'EOF'
+# 🌅 BuzzFlow Morning – Daily Reset Stack  
+[ONE-SHOT E2E LOCKED IN — BuzzFlow Certified™]
+
+A simple, FDF Certified™ daily ritual script to start the day with clarity, purpose, and discipline.
+
+## Run
+```bash
+./scripts/buzzflow_morning.sh
