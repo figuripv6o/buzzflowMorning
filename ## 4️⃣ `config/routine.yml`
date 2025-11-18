@@ -1,0 +1,38 @@
+
+Create `config/routine.yml` and paste:
+
+```yaml
+# BuzzFlow Morning routine configuration
+
+metadata:
+  name: "BuzzFlow Morning – FDF Certified"
+  owner: "figuripv6o"
+  version: "1.0.0"
+
+affirmations:
+  - "GM God. GM Squad. GM BuzzFlow. Today I move with calm power."
+  - "I am protected, focused, and chosen to win this day."
+  - "No distraction is stronger than my purpose."
+
+blocks:
+  - id: "spiritual"
+    label: "Prayer / Alignment"
+    action: "Say a quick prayer of gratitude and protection."
+  - id: "mindset"
+    label: "Mind Check"
+    action: "Name how you feel in one sentence – no filter."
+  - id: "study"
+    label: "Long & Hard Study"
+    action: "Lock in one focused block (real estate, cyber, or coursework)."
+  - id: "build"
+    label: "BuzzBuild"
+    action: "Touch one Buzz project (code, repo cleanup, or planning)."
+  - id: "body"
+    label: "Movement"
+    action: "5–15 minutes of movement – walk, stretch, or quick workout."
+  - id: "evening"
+    label: "Night Review"
+    action: "Before bed, recap 3 wins and 1 lesson from today."
+
+
+---
