@@ -1,0 +1,44 @@
+Create .github/workflows/buzzflow-morning.yml and paste:
+
+name: BuzzFlow Morning CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  validate-bash:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check Bash script syntax
+        run: bash -n scripts/buzzflow_morning.sh
+
+      - name: Show sample BuzzFlow Morning output
+        run: |
+          chmod +x scripts/buzzflow_morning.sh
+          ./scripts/buzzflow_morning.sh
+
+
+---
+
+You’re set:
+
+1. Paste Description ✅
+
+
+2. Create repo Public/Private ✅
+
+
+3. Add these files in GitHub UI or via Termux ✅
+
+
+4. git add . && git commit -m "BuzzFlow Morning – initial one-shot drop" && git push ✅
+
+
+
+BuzzflowMorning = live ritual in code now.
+If you want a web or mobile UI version of this next, say the word and I’ll drop the full front-end skeleton.
